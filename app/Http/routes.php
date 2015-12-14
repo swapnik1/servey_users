@@ -15,7 +15,11 @@ Route::get('/', function () {
 	$valid_bquploads = App\User::valid_bquploads();
 	$output = array();
 	foreach ($valid_bquploads as $row) {
-	    array_push($output, $row);
+		$key = $row->month.'-'.$row->year;
+		if (!array_key_exists($key, $output)) {
+			$output[$key] = array();
+		}
+	    array_push($output[$key], $row);
 	}
     return view('welcome')->with('output',$output);
 });

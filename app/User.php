@@ -49,7 +49,11 @@ class User extends Model implements AuthenticatableContract,
 		$bquploads = DB::select('
 			SELECT 
 				`users`.`user_id`,
-				`bqupload`.`timestamp`
+				`users`.`username`,
+				COUNT(`users`.`user_id`) AS `serveys`,
+				`bqupload`.`timestamp`,
+				MONTH(`bqupload`.`timestamp`) as month,
+				YEAR(`bqupload`.`timestamp`) as year
 			FROM
 				`users`
 			INNER JOIN
